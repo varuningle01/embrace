@@ -1,0 +1,13 @@
+{
+    "users": [
+      {
+        "email": "user1@cognizant.com",
+        "password": "password1"
+      }
+    ],
+    "admin":[{
+        "email": "admin@cognizant.com",
+        "password": "admin"
+    }]
+  }
+  
