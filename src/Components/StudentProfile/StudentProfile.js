@@ -1,17 +1,23 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
+import Media from "../Media/Media";
+import Card from "../Card/Card";
+import Footer from "../Footer/Footer";
+import Chatbot from "../ChatBot/ChatBot";
 
 function StudentProfile() {
   return (
     <div>
       <Navbar />
+      <Chatbot />
       <div className="row">
         <div className="col-7">
           <div
             className="w-75"
             style={{
               borderRadius: "10px",
-              boxShadow: "2px 2px 2px 2px #4D00AF",
+              boxShadow:
+                "0px 5px 17px rgba(86, 19, 170, 0.2), 0px 10px 33px 4px rgba(86, 19, 170, 0.25)",
               marginLeft: "10%",
             }}
           >
@@ -43,25 +49,70 @@ function StudentProfile() {
         </div>
         <div className="col-5">
           <div className="d-flex align-items-center">
-            <div className="d-flex flex-column" style={{marginLeft:"-20%"}}>
-            <button className='btn text-white mb-3 mt-5' style={{backgroundColor:"#D587FE", width:"100%", height:"20% "}}>
-        <text>Selected Grievance</text>
-        </button>
-        <button className='btn text-white mb-3' style={{backgroundColor:"#D587FE", width:"100%", height:"20% "}}>
-        <text>Pending Grievance</text>
-        </button>
-        <button className='btn text-white' style={{backgroundColor:"#D587FE", width:"100%", height:"20% "}}>
-        <text>Bookmark Grievance</text>
-        </button>
+            <div className="d-flex flex-column" style={{ marginLeft: "-20%" }}>
+              <button
+                className="btn text-white mb-3 mt-5"
+                style={{
+                  backgroundColor: "#D587FE",
+                  width: "100%",
+                  height: "20% ",
+                }}
+              >
+                <text>Selected Grievance</text>
+              </button>
+              <button
+                className="btn text-white mb-3"
+                style={{
+                  backgroundColor: "#D587FE",
+                  width: "100%",
+                  height: "20% ",
+                }}
+              >
+                <text>Pending Grievance</text>
+              </button>
+              <button
+                className="btn text-white"
+                style={{
+                  backgroundColor: "#D587FE",
+                  width: "100%",
+                  height: "20% ",
+                }}
+              >
+                <text>Bookmark Grievance</text>
+              </button>
             </div>
-            <div style={{marginLeft:"40%", marginTop:"8%"}}>
-            <button className='btn text-white' style={{backgroundColor:"#D587FE", width:"100%", height:"20% "}}>
-        <text>Sign Out</text>
-        </button>
+            <div style={{ marginLeft: "40%", marginTop: "8%" }}>
+              <button
+                className="btn text-white"
+                style={{
+                  backgroundColor: "#D587FE",
+                  width: "100%",
+                  height: "20% ",
+                }}
+              >
+                <text>Sign Out</text>
+              </button>
             </div>
           </div>
         </div>
       </div>
+      <div className="row mt-5 mb-5">
+        <div
+          className="container col-5"
+          style={{
+            marginLeft: "7%",
+            borderRadius: "10px",
+            boxShadow:
+              "0px 5px 17px rgba(86, 19, 170, 0.2), 0px 10px 33px 4px rgba(86, 19, 170, 0.25)",
+          }}
+        >
+          <Media />
+        </div>
+        <div className="container col-6">
+          <text>User Grievances Card</text>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 }
