@@ -5,32 +5,63 @@ import SortingNav from "./SortingNav";
 
 import GrievanceTab from "./GrievanceTab";
 import GrievanceCard from "./GrievanceCard";
+import axios from "axios";
 
 function Admin() {
   const [grievanceData, setGrievanceData] = useState([]);
+  const [showSolved, setShowSolved] = useState(false);
+
   useEffect(() => {
-    const storedGrievanceData =
-      JSON.parse(localStorage.getItem("grievances")) || [];
-    setGrievanceData(storedGrievanceData);
+    fetchGrievanceData();
   }, []);
-  const handleUpdate = (grievanceID) => {
+  const fetchGrievanceData = () => {
+    axios
+      .get("http://127.0.0.1:5000/api/grievances")
+      .then((response) => {
+        setGrievanceData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching grievance data:", error);
+      });
+  };
+  const handleUpdateStatus = (grievanceID) => {
     const updatedGrievances = grievanceData.map((grievance) => {
-      if (grievance.grievanceID === grievanceID) {
+      if (grievance._id === grievanceID) {
         return { ...grievance, status: "Solved" };
       }
       return grievance;
     });
-    setGrievanceData(updatedGrievances);
-    localStorage.setItem("grievances", JSON.stringify(updatedGrievances));
+
+    axios
+      .put(`http://127.0.0.1:5000/api/${grievanceID}/grievances`, {
+        status: "Solved",
+      })
+      .then((response) => {
+        console.log("Grievance status updated:", response.data);
+        setGrievanceData(updatedGrievances);
+      })
+      .catch((error) => {
+        console.error("Error updating grievance status:", error);
+      });
   };
 
   const handleDelete = (grievanceID) => {
-    const updatedGrievances = grievanceData.filter((grievance) => {
-      return grievance.grievanceID !== grievanceID;
-    });
-    setGrievanceData(updatedGrievances);
-    localStorage.setItem("grievances", JSON.stringify(updatedGrievances));
+    axios
+      .delete(`http://127.0.0.1:5000/api/${grievanceID}/grievances`)
+      .then((response) => {
+        console.log("Grievance deleted:", response.data);
+        fetchGrievanceData(); // Fetch updated data after deletion
+      })
+      .catch((error) => {
+        console.error("Error deleting grievance:", error);
+      });
   };
+  const handleToggleSolved = () => {
+    setShowSolved(!showSolved); // Toggle the state
+  };
+  const filteredGrievanceData = showSolved
+    ? grievanceData.filter((grievance) => grievance.status === "Solved")
+    : grievanceData;
 
   const myStyles = {
     height: "100vh",
@@ -57,17 +88,17 @@ function Admin() {
           <SortingNav />
           <div className="container-fluid d-flex row">
             <div className="col-10" style={myStyles}>
-              {grievanceData.map((grievance) => (
+              {filteredGrievanceData.map((grievance) => (
                 <GrievanceCard
-                  key={grievance.grievanceID}
+                  key={grievance._id}
                   grievance={grievance}
-                  onUpdate={() => handleUpdate(grievance.grievanceID)}
-                  onDelete={() => handleDelete(grievance.grievanceID)}
+                  onUpdate={() => handleUpdateStatus(grievance._id)}
+                  onDelete={() => handleDelete(grievance._id)}
                 />
               ))}
             </div>
             <div className="col-2 d-flex justify-content-end">
-              <GrievanceTab />
+              <GrievanceTab onToggleSolved={handleToggleSolved} />
             </div>
           </div>
         </div>

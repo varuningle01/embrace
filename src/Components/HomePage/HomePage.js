@@ -12,31 +12,33 @@ import Card from "../Card/Card";
 import Footer from "../Footer/Footer";
 import Chatbot from "../ChatBot/ChatBot";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 function HomePage() {
   const data = [
     {
-      img: img1,
+      img: "https://lottie.host/ff5261f8-34b5-4f2f-9df4-1be87fbf74de/wVC0GeHR2U.json",
       text: "Mental Health Support",
     },
     {
-      img: img2,
+      img: "https://lottie.host/f95fcd24-6b34-490c-99b0-32074d5b5223/HdvWOakeCa.json",
       text: "Fees Related Issues",
     },
     {
-      img: img3,
+      img: "https://lottie.host/3ed001c8-2ad1-4162-b57b-433a5eee3c4f/YMZvgBxDeR.json",
       text: "Lost and Found",
     },
     {
-      img: img4,
+      img: "https://lottie.host/a8ba537a-0d99-4f8f-b0bb-44de53089ba5/pUWVScc3p1.json",
       text: "Transportation Issues",
     },
     {
-      img: img5,
+      img: "https://lottie.host/8b01e473-fb73-46ba-87dc-f34020cfe7bb/j5pb7MA4AW.json",
       text: "Anti Ragging",
     },
     {
-      img: img6,
+      img: "https://lottie.host/f6b7d1c5-b71b-45bf-9691-ead01270c1bd/UGw31ecQO4.json",
       text: "Lab Issues",
     },
   ];
@@ -59,6 +61,7 @@ function HomePage() {
   const handleLabIssuesIssuesClick = () => {
     navigate("/labissues");
   };
+
   return (
     <div className="container-fluid">
       <Navbar />
@@ -83,7 +86,18 @@ function HomePage() {
           <GrievanceForm />
         </div>
         <div className="col-5">
-          <img src={homeimg} className="img-fluid" />
+          {/* <img src={homeimg} className="img-fluid" /> */}
+          <Player
+            autoplay
+            loop
+            src="https://lottie.host/a3ec7fc9-d291-455c-96a2-9eee8d19d62f/jYJBDJmaHw.json"
+            style={{
+              height: "auto",
+              width: "auto",
+              // marginRight: "20%",
+              // marginTop: "-10%",
+            }}
+          ></Player>
         </div>
       </div>
       <br />

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import embrace_logo from "../../assets/_em_brace.png";
 import { useNavigate } from "react-router-dom";
-
+import { AuthContext } from "../../Context/AuthContext";
 function Navbar() {
   const navigate = useNavigate();
+  const { isLoggedIn, logout } = useContext(AuthContext);
   const handleHomeClick = () => {
     navigate("/home");
   };
@@ -59,10 +60,25 @@ function Navbar() {
             Profile
           </text>
           <i
-            style={{ fontSize: "50px" }}
+            style={{ fontSize: "50px", color: "#814AC6" }}
             onClick={handleProfileClick}
             class="bi bi-person-circle"
           ></i>
+          {isLoggedIn ? (
+            // Display Logout icon when logged in
+            <i
+              style={{
+                fontSize: "50px",
+                color: "red",
+                cursor: "pointer",
+                marginLeft: "10%",
+              }}
+              onClick={logout}
+              className="bi bi-box-arrow-right"
+            ></i>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>

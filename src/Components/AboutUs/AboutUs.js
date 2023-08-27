@@ -3,6 +3,7 @@ import Navbar from "../Navbar/Navbar";
 import aboutus from "../../assets/aboutus.jpg";
 import Footer from "../Footer/Footer";
 import Chatbot from "../ChatBot/ChatBot";
+import { Player } from "@lottiefiles/react-lottie-player";
 function AboutUs() {
   return (
     <div>
@@ -26,7 +27,18 @@ function AboutUs() {
           </p>
         </div>
         <div className="col-6 ms-5">
-          <img src={aboutus} />
+          {/* <img src={aboutus} /> */}
+          <Player
+            autoplay
+            loop
+            src="https://lottie.host/436a5291-3192-42ab-bef2-927c3e39034a/7fJU1GmvOE.json"
+            style={{
+              height: "auto",
+              width: "auto",
+              marginRight: "20%",
+              // marginTop: "-10%",
+            }}
+          ></Player>
         </div>
       </div>
       <Footer />

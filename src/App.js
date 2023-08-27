@@ -21,7 +21,7 @@ import AntiRagging from "./Components/AntiRagging/AntiRagging";
 import LabIssues from "./Components/LabIssues/LabIssues";
 function App() {
   const router = createBrowserRouter([
-    { path: "/", element: <Navigate to="/signin" /> },
+    { path: "/", element: <Navigate to="/signup" /> },
     { path: "/signup", element: <SignUp /> },
     { path: "/signin", element: <Login /> },
     { path: "/home", element: <HomePage /> },

@@ -1,33 +1,38 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import embrace_logo from "../../assets/_em_brace.png";
 import embrace_logo1 from "../../assets/Group 158.png";
 import userData from "../../userData.json";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
+import axios from "axios";
+import { Player } from "@lottiefiles/react-lottie-player";
+
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   let [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userData.admin);
-    const user_data = userData.users.find(
-      (user) =>
-        user.email === formData.email && user.password === formData.password
-    );
-    const admin_data = userData.admin.find(
-      (user) =>
-        user.email === formData.email && user.password === formData.password
-    );
-    if (admin_data) {
-      navigate("/admin");
-    } else if (user_data) {
-      navigate("/home");
-    } else {
-      console.log("Error Ocuured");
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:5000/api/login",
+        formData
+      );
+      const token = response.data.token;
+      const studentID = response.data.studentID;
+      if (token && studentID) {
+        login(token, studentID);
+        navigate("/home"); // Redirect to home page after successful login
+      } else {
+        console.log("Authentication failed");
+      }
+    } catch (error) {
+      console.log("Error occurred:", error);
     }
   };
 
@@ -35,11 +40,22 @@ const Login = () => {
     <div className="container-fluid row justify-content-between">
       <div className="col-5" style={{ marginRight: "100px", marginTop: "13%" }}>
         <img className="img-fluid float-start" src={embrace_logo} />
-        <img
+        {/* <img
           className=""
           src={embrace_logo1}
           style={{ height: "400px", width: "500px" }}
-        />
+        /> */}
+        <Player
+          autoplay
+          loop
+          src="https://lottie.host/f19a504e-41a0-49a1-87bb-479eda6aa210/xXOvZb1BXa.json"
+          style={{
+            height: "90%",
+            width: "90%",
+            // marginRight: "20%",
+            // marginTop: "-10%",
+          }}
+        ></Player>
       </div>
 
       <div className="col-5" style={{ marginTop: "5%" }}>
@@ -73,7 +89,9 @@ const Login = () => {
           <br />
           <text>
             To Create an account click{" "}
-            <span style={{ color: "red" }}>here!</span>
+            <span style={{ color: "red" }} onClick={() => navigate("/signup")}>
+              here!
+            </span>
           </text>
         </form>
       </div>

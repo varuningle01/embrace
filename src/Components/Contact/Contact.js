@@ -6,6 +6,7 @@ import email from "../../assets/email2.png";
 import website from "../../assets/website2.png";
 import Footer from "../Footer/Footer";
 import Chatbot from "../ChatBot/ChatBot";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 function Contact() {
   return (
@@ -30,7 +31,7 @@ function Contact() {
               padding: "30px",
             }}
           >
-            <img
+            {/* <img
               src={address}
               style={{
                 width: "105px",
@@ -38,7 +39,18 @@ function Contact() {
                 alignContent: "center",
                 margin: "0 auto",
               }}
-            />
+            /> */}
+            <Player
+              autoplay
+              loop
+              src="https://lottie.host/3f9ed53b-dd14-4719-b14a-636fd537b18b/5siFkycgxP.json"
+              style={{
+                height: "120px",
+                width: "120px",
+                marginRight: "20%",
+                // marginTop: "-10%",
+              }}
+            ></Player>
             <h3 style={{ textAlign: "center", fontWeight: "bold" }}>Address</h3>
             <p style={{ fontSize: "16px", textAlign: "center" }}>
               Phase 3, Hinjawadi, Pimpri-Chinchwad, Maharashtra 411057
@@ -62,7 +74,7 @@ function Contact() {
               padding: "30px",
             }}
           >
-            <img
+            {/* <img
               src={contact}
               style={{
                 width: "105px",
@@ -70,7 +82,18 @@ function Contact() {
                 alignContent: "center",
                 margin: "0 auto",
               }}
-            />
+            /> */}
+            <Player
+              autoplay
+              loop
+              src="https://lottie.host/71c495bc-7280-4185-9390-1bf385166c28/Qgd7IIAGWB.json"
+              style={{
+                height: "120px",
+                width: "120px",
+                marginRight: "20%",
+                // marginTop: "-10%",
+              }}
+            ></Player>
             <h3 style={{ textAlign: "center", fontWeight: "bold" }}>Contact</h3>
             <p style={{ fontSize: "16px", textAlign: "center" }}>
               +91 7276886593
@@ -96,7 +119,7 @@ function Contact() {
               padding: "30px",
             }}
           >
-            <img
+            {/* <img
               src={email}
               style={{
                 width: "105px",
@@ -104,7 +127,18 @@ function Contact() {
                 alignContent: "center",
                 margin: "0 auto",
               }}
-            />
+            /> */}
+            <Player
+              autoplay
+              loop
+              src="https://lottie.host/5abc0e3b-913f-409f-9325-2e8b5ec61d52/pp71etIxgB.json"
+              style={{
+                height: "120px",
+                width: "120px",
+                marginRight: "20%",
+                // marginTop: "-10%",
+              }}
+            ></Player>
             <h3 style={{ textAlign: "center", fontWeight: "bold" }}>Email</h3>
             <p style={{ fontSize: "16px", textAlign: "center" }}>
               cognizant@gmail.com
@@ -128,7 +162,7 @@ function Contact() {
               padding: "30px",
             }}
           >
-            <img
+            {/* <img
               src={website}
               style={{
                 width: "105px",
@@ -136,7 +170,18 @@ function Contact() {
                 alignContent: "center",
                 margin: "0 auto",
               }}
-            />
+            /> */}
+            <Player
+              autoplay
+              loop
+              src="https://lottie.host/1af58b0a-8991-4f99-8710-74e4b7609fcc/knF7Jrm6t9.json"
+              style={{
+                height: "120px",
+                width: "120px",
+                marginRight: "20%",
+                // marginTop: "-10%",
+              }}
+            ></Player>
             <h3 style={{ textAlign: "center", fontWeight: "bold" }}>Website</h3>
             <p style={{ fontSize: "16px", textAlign: "center" }}>
               www.cognizant.com

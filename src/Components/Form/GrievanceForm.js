@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../../Context/AuthContext";
 
 function GrievanceForm() {
   const navigate = useNavigate();
+  const { studentID, accessToken } = useContext(AuthContext);
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [selected, setSelected] = useState("Type");
   const [selectedCategory, setSelectedCategory] = useState("Category");
   const changeSelectOptionHandler = (selected) => {
@@ -63,21 +67,48 @@ function GrievanceForm() {
     setGrievanceText(event.target.value);
   };
 
-  let [grievanceData, setGrievanceData] = useState([]);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!studentID) {
+      console.log("User is not authenticated");
+      navigate("/signin");
+      return;
+    }
     const newGrievance = {
-      grievanceID: Math.floor(Math.random() * 10000000000),
-      grievance: grievanceText,
-      date: new Date().toUTCString().slice(5, 16),
+      description: grievanceText,
       type: selected,
       category: selectedCategory,
-      status: "pending",
     };
-    let newGrievanceData = [...grievanceData, newGrievance];
-    setGrievanceData(newGrievanceData);
-    localStorage.setItem("grievances", JSON.stringify(newGrievanceData));
+
+    try {
+      // Make a POST request to submit the grievance
+      const response = await axios.post(
+        `http://127.0.0.1:5000/api/${studentID}/grievances`,
+        newGrievance,
+        {
+          headers: {
+            // Add your authorization token or other headers here
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        console.log("Grievance submitted successfully");
+        // Optionally, you can show a success message or redirect to a confirmation page
+        setIsSubmitted(true);
+        setSelected("Type"); // Reset the selected type
+        setSelectedCategory("Category"); // Reset the selected category
+        setGrievanceText("");
+      } else {
+        console.log("Error submitting grievance", response);
+        // Handle error, show an error message, etc.
+      }
+    } catch (error) {
+      console.log(error);
+      console.error("An error occurred:", error);
+      // Handle error, show an error message, etc.
+    }
   };
 
   return (
@@ -158,17 +189,7 @@ function GrievanceForm() {
             color: "#4D00AF",
           }}
         ></textarea>
-        {/* <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="flexCheckDefault"
-          />
-          <label class="form-check-label mb-3" for="flexCheckDefault">
-            Submit Anonymously
-          </label>
-        </div> */}
+
         <button
           className="btn w-50"
           type="submit"
@@ -176,13 +197,18 @@ function GrievanceForm() {
             borderRadius: "50px",
             boxShadow:
               "0px 5px 17px rgba(86, 19, 170, 0.2), 0px 10px 33px 4px rgba(86, 19, 170, 0.25)",
-            backgroundColor: "#4D00AF",
+            backgroundColor: "#814AC6",
             color: "white",
             marginLeft: "13%",
           }}
         >
           Submit
         </button>
+        {isSubmitted && (
+          <p style={{ marginTop: "10px", color: "green" }}>
+            Grievance Submitted Successfully!
+          </p>
+        )}
       </form>
     </div>
   );
